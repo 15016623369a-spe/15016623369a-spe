@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="./assets/avatar.jpg" width="118" alt="黄晖杰" />
-
+  <img src="./avatar.jpg" width="130" alt="头像" />
   # 黄晖杰 · Huijie Huang
 
   **Applied Statistics M.S. @ Sichuan University**  
