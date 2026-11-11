@@ -1,104 +1,59 @@
 <div align="center">
-  <img src="./avatar.jpg" width="130" alt="头像" />
-  
-  # Jace
-
-  **Applied Statistics M.S. @ Sichuan University**  
-  **Information Fusion · Algorithm Engineering · FDE · AI Agent Engineering**
-
-  [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-  [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
-  [![XGBoost](https://img.shields.io/badge/XGBoost-EB5B2A?style=flat-square)](https://xgboost.ai/)
-  [![LightGBM](https://img.shields.io/badge/LightGBM-02569B?style=flat-square)](https://lightgbm.readthedocs.io/)
-  [![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://en.wikipedia.org/wiki/SQL)
-  [![AI Agent](https://img.shields.io/badge/AI-Agent_Engineering-6F42C1?style=flat-square)](#featured-projects)
+  <img src="./avatar.jpg" width="112" alt="Jace 的头像" />
+  <h1>Jace</h1>
+  <p><strong>Applied Statistics · Sichuan University</strong><br />AI Agent Engineering · Forward Deployed Engineering · Information Fusion</p>
 </div>
 
----
+四川大学应用统计学硕士研究生，研究方向为信息融合。我把统计建模与评估用在 AI 应用开发中，关注三个工程问题：结果能否核对、操作能否控制、任务失败后能否恢复。
 
-## About Me
+## 代表项目
 
-四川大学应用统计学硕士研究生，研究方向为信息融合。目前重点关注多源异构信息融合、多模态学习、凸优化与多 Agent 协作，并持续积累机器学习建模、模型解释和 AI 原生工程交付经验。
+### [见数 · Text2SQL Agent](https://github.com/15016623369a-spe/text2sql-agent)
 
-我的兴趣不止于训练模型，也包括把业务问题转译为可计算目标、构建可复现的数据与评估流程，并通过 Agent 编排、自动化验收和快速原型完成端到端交付。
+面向业务数据的自然语言问数与表格分析助手。支持 SQLite 多轮问数，以及 CSV、Excel 的筛选、聚合、公式核对和绘图。查询结果可展开查看实际执行的 SQL。
 
-- 🎯 **Target Roles:** Algorithm Engineer / Forward Deployed Engineer / AI Agent Engineer
-- 🔬 **Research:** Information Fusion / Multimodal Learning / Convex Optimization
-- 🧠 **Machine Learning:** Classification, Regression, Ensemble Learning, Model Interpretability
-- 🤖 **AI Engineering:** Agent Orchestration, Context Control, Quality Gates, Human–AI Collaboration
-- 📍 **Location:** Chengdu, China
+- 用 LangGraph 管理口径澄清和会话恢复，用 Schema RAG 选取相关表列。生成的 SQL 先经 SQLite `EXPLAIN` 试跑，再以只读权限执行。演示写操作须经显式审批，上传文件在隔离容器内分析。
+- 在 BIRD Mini-Dev 的 200 道留出题上，候选表扩展将最终表召回率从 **94.48% 提高到 98.09%**。另一次 50 道开发题对照中，加入 SQL 纠错后，执行准确率仍为 **26/50**。
 
-## Tech Stack
+`Python` · `FastAPI` · `LangGraph` · `Streamlit` · `SQLite` · `Docker Compose`
 
-| Area | Skills |
-|---|---|
-| Programming & Data | Python, SQL, NumPy, Pandas, Jupyter |
-| Modeling | scikit-learn, XGBoost, LightGBM, SVM/SVR, Random Forest, Stacking |
-| Evaluation | Cross-validation, Grid Search, ROC-AUC, RMSE, Imbalanced Learning |
-| Interpretability | SHAP, Partial Dependence Plot, Feature Interaction Analysis |
-| AI / FDE Engineering | Requirement Abstraction, Rapid Prototyping, Agent Orchestration, Code Review, Automated Validation |
-| Engineering Tools | Git, VS Code, Codex, Claude Code, GPT, Vite/React/TypeScript Project Collaboration |
+[本地演示](https://github.com/15016623369a-spe/text2sql-agent#快速开始) · [检索评测](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v2-schema-recall-fix.md) · [SQL 执行对照](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v3-step5-dry-run.md)
 
-<a id="featured-projects"></a>
+### [学以成片 · 短视频教学 Agent](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent)
 
-## Featured Projects
+把 Markdown 学习笔记转成可审阅、可修改的教学视频。工作台保留知识点对应的原文引文，支持逐镜修改讲稿和画面、试做单镜，再合成配音、字幕、视频和封面。
 
-### 01 · Credit Default Prediction for Risk Decision Support
+- 本地工作台 **v0.2.0** 支持修订历史、任务恢复和有界重试。修改某一镜后，仍有效的产物可从缓存复用。
 
-> 面向贷前风险识别的不平衡分类与可解释建模项目。
+`Python` · `React` · `Remotion` · `FFmpeg` · `Qwen3-TTS` · `Whisper`
 
-- 分析 **7,500 条、18 字段**借款人数据，违约样本占 **28.2%**；完成缺失模式识别、数值填补、尺度统一与类别编码。
-- 采用固定 8:2 留出法，并仅在训练集应用 SMOTE，将训练数据扩充至 **8,656 条**。
-- 构建线性评分、SVM、朴素贝叶斯及树模型 Benchmark，使用 3 折 GridSearchCV 和 ROC-AUC 评价；Notebook 留存最高 AUC 为 **0.7688**。
-- 利用 SHAP 汇总、依赖与交互分析构建模型解释层，支持信用风险变量的影响复核。
+[工作台与示例](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent#已经可以做什么) · [架构与执行机制](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent/blob/main/docs/public/ARCHITECTURE.md)
 
-`Python` `scikit-learn` `SMOTE` `XGBoost` `LightGBM` `SHAP`
+### [ReGlyph PDF · 本地 PDF 文字编辑器](https://github.com/15016623369a-spe/reglyph-pdf)
 
-[Read project details →](./PROJECT_DETAILS.md#1-credit-default-prediction-for-risk-decision-support)
+在 OCRPDF-TO-PPT 基础上维护并扩展桌面编辑器，让扫描件和扁平化宣传册中的文字重新可编辑。工作台把识别、替换预览、底图修复与文字排版串起来，支持导出带文字图层的 PDF 和可编辑的 PowerPoint 文字框。
 
----
+- 严格替换模式校验选区外像素一致性，失败或取消时回滚该批操作。可移植工程保存原页、修复底图与文字图层，便于对照和继续编辑。
 
-### 02 · Hourly Bike Demand Forecasting with Ensemble Regression
+`Python` · `PySide6` · `PaddleOCR` · `LaMa`
 
-> 面向共享单车供需调度的小时级需求预测与集成回归项目。
+[工作台与使用说明](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/README.zh-CN.md) · [上游与新增部分](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/THIRD_PARTY_NOTICES.md)
 
-- 基于 **10,886 条**小时级记录，从时间戳派生月、日、星期与小时特征，并处理温度变量共线性与训练集湿度异常值。
-- 从线性/正则化回归基线逐步扩展至 SVR、近邻模型与树集成模型，以 RMSE 统一评价预测误差。
-- 经 5 折网格搜索，调参后 XGBoost 测试 RMSE 为 **53.1942**。
-- 实现 Stacking 与异构模型加权融合，并结合 SHAP/PDP 分析小时、温度、月份和湿度的非线性效应。
+## 信息融合与统计建模
 
-`Time Feature Engineering` `Regression` `XGBoost` `Stacking` `SHAP` `PDP`
+| 项目 | 内容 |
+| --- | --- |
+| [多目标跟踪实验](https://github.com/15016623369a-spe/Message-Passing-Algorithms-for-Scalable-Multitarget-Tracking-test) | 将粒子置信传播（BP）跟踪实验移植到 Python/Jupyter。另对 MT3 集合预测完成短程训练和流程验证。 |
+| [Prism · 棱镜](https://github.com/15016623369a-spe/paper-prism) | 自制论文阅读技能。用可追溯阅读卡记录方法、结论和证据，维护术语库，支持跨论文比较与组会汇报。 |
+| [上海房价回归实验](https://github.com/15016623369a-spe/ml-project) | 基于 3,000 条上海历史挂牌样本比较线性回归、随机森林和梯度提升。仓库提供 Notebook、数据来源与采样记录。 |
+| [信贷违约预测](./PROJECT_DETAILS.md#1-credit-default-prediction-for-risk-decision-support) · [共享单车需求预测](./PROJECT_DETAILS.md#2-hourly-bike-demand-forecasting-with-ensemble-regression) | 分类与回归案例，附基线、留出集指标、模型解释和验证局限。 |
 
-[Read project details →](./PROJECT_DETAILS.md#2-hourly-bike-demand-forecasting-with-ensemble-regression)
+## 工程与学习记录
 
----
+- [互动剧情应用交付案例](./PROJECT_DETAILS.md#3-llm-multi-agent-delivery-orchestration) · 通过 Codex 与 Claude Code 分工完成规划、实现与审查，记录场景 01–06 的浏览器回归和移动端检查。
+- [Agent Learn](https://github.com/15016623369a-spe/agent-learn) · FastAPI 服务、办公任务原型、结构化输出与上下文工程练习。
+- [Transformer Learning](https://github.com/15016623369a-spe/transformer-learning) · PyTorch 注意力与 Pre-Norm Block 实验。 [Hugging Learning](https://github.com/15016623369a-spe/hugging-learning) · Hugging Face 推理、生成与 KV Cache 实验。
 
-### 03 · LLM Multi-Agent Delivery Orchestration for an Interactive Story App
+## 联系
 
-> 将多 Agent 从“辅助对话”转化为具备职责边界、质量门禁与返工闭环的软件交付流程。
-
-- 设计 **Supervisor–Executor–Reviewer** 架构：Codex 负责任务规划、上下文控制和审查，Claude Code 承担受约束实现。
-- 将剧情需求结构化为场景状态、资产清单、修改白名单与验收矩阵，并通过上下文隔离和文件校验和控制回归风险。
-- 建立基线构建、变更审查、浏览器端到端回归、响应式检查和控制台监控等质量门禁。
-- 完成 **47 个模块**构建及 Scene 01→06 全链路验证；**390×844** 窄屏无溢出，运行错误为 **0**。
-
-`Agent Orchestration` `Quality Gate` `Codex` `Claude Code` `React` `TypeScript`
-
-[Read project details →](./PROJECT_DETAILS.md#3-llm-multi-agent-delivery-orchestration)
-
-## Current Exploration
-
-### Multimodal E-commerce Design Agent
-
-正在探索“创意 Brief → 结构化提示词 → 图片/视频资产 → 规格与一致性校验 → 应用接入”的多模态内容工作流，重点关注角色一致性、素材约束、生成失败兜底与人机协作评审。
-
-### Information Fusion & Optimization
-
-围绕多源异构数据的表示、对齐与联合建模持续开展文献阅读和方法学习，并关注凸优化思想在融合建模与 Agent 系统中的应用。
-
-## Contact
-
-- Email: `15016623369@163.com`
-- GitHub: `https://github.com/15016623369a-spe`
-
-
+[15016623369@163.com](mailto:15016623369@163.com)
