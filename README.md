@@ -19,6 +19,17 @@
 
 [本地演示](https://github.com/15016623369a-spe/text2sql-agent#快速开始) · [检索评测](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v2-schema-recall-fix.md) · [SQL 执行对照](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v3-step5-dry-run.md)
 
+### [Synapse · 知脉 | 本地知识库与研究助手](https://github.com/15016623369a-spe/synapse-zhimai)
+
+面向个人研究与学习的本地优先知识助手。导入 PDF、Word、网页和笔记后，可以围绕资料进行带原文引用的问答，也可以在交互式 3D 知识图谱中浏览文档、概念和标签之间的关联。
+
+- 结合 BM25、本地向量检索与 RRF 融合召回文档片段。扫描版 PDF 可用 OCR 提取文字，未配置大模型时仍可离线检索和查看原文摘录。
+- 通过只读 MCP 工具查询文件系统、SQLite 或 GitHub。联网找到的候选资料经用户确认后才会入库。
+
+`Python` · `FastAPI` · `React` · `TypeScript` · `SQLite` · `Three.js` · `MCP`
+
+[界面预览](https://github.com/15016623369a-spe/synapse-zhimai#这是什么) · [本地启动](https://github.com/15016623369a-spe/synapse-zhimai#快速开始)
+
 ### [学以成片 · 短视频教学 Agent](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent)
 
 把 Markdown 学习笔记转成可审阅、可修改的教学视频。工作台保留知识点对应的原文引文，支持逐镜修改讲稿和画面、试做单镜，再合成配音、字幕、视频和封面。
