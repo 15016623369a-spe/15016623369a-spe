@@ -10,45 +10,67 @@
 
 ### [见数 · Text2SQL Agent](https://github.com/15016623369a-spe/text2sql-agent)
 
-面向业务数据的自然语言问数与表格分析助手。支持 SQLite 多轮问数，以及 CSV、Excel 的筛选、聚合、公式核对和绘图。查询结果可展开查看实际执行的 SQL。
+**项目介绍**  
+见数把数据库问数和文件分析放进同一个工作台。用户可以用自然语言查询 SQLite 或 PostgreSQL，也可以上传 CSV、Excel 做筛选、聚合、公式核对和绘图。数据库查询完成后，界面会展示本次使用的业务口径、实际执行的 SQL 和结果，方便复核或继续追问。
 
-- 用 LangGraph 管理口径澄清和会话恢复，用 Schema RAG 选取相关表列。生成的 SQL 先经 SQLite `EXPLAIN` 试跑，再以只读权限执行。演示写操作须经显式审批，上传文件在隔离容器内分析。
-- 在 BIRD Mini-Dev 的 200 道留出题上，候选表扩展将最终表召回率从 **94.48% 提高到 98.09%**。另一次 50 道开发题对照中，加入 SQL 纠错后，执行准确率仍为 **26/50**。
+**技术栈**  
+`Python` · `FastAPI` · `LangGraph` · `Streamlit` · `Plotly` · `SQLite / PostgreSQL` · `pandas` · `Docker Compose`
 
-`Python` · `FastAPI` · `LangGraph` · `Streamlit` · `SQLite` · `Docker Compose`
+**项目亮点**
 
-[本地演示](https://github.com/15016623369a-spe/text2sql-agent#快速开始) · [检索评测](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v2-schema-recall-fix.md) · [SQL 执行对照](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/v3-step5-dry-run.md)
+- **多轮口径澄清与 SQL 试跑。** LangGraph 保存已确认的时间、地区和指标口径，刷新后可恢复会话。Schema RAG 检索相关表列并补齐外键桥接表，生成的 SQL 通过 `EXPLAIN` 检查后以只读权限执行。演示库的订单备注修改需人工审批。
+- **复杂表格分析与计算隔离。** 支持选择工作表、确认多级表头，并按指定单位和容差逐行核对公式。文件计算在关闭网络的容器内运行，可输出统计表、交互图表和可下载结果。
+- **真实执行结果评测。** 在 BIRD Mini-Dev 的 200 道留出题上，新旧版本各运行三次，SQL 执行准确率中位数从 **32.5% 提升至 39.5%**。评测记录同时公开结果匹配口径、失败分类、延迟与 token 开销。
+
+[逐步演示](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/demo.md) · [快速启动](https://github.com/15016623369a-spe/text2sql-agent#快速启动) · [评测与复现](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/ci.md#产品路径-bird-评测)
 
 ### [Synapse · 知脉 | 本地知识库与研究助手](https://github.com/15016623369a-spe/synapse-zhimai)
 
-面向个人研究与学习的本地优先知识助手。导入 PDF、Word、网页和笔记后，可以围绕资料进行带原文引用的问答，也可以在交互式 3D 知识图谱中浏览文档、概念和标签之间的关联。
+**项目介绍**  
+面向个人研究与学习的自托管知识库。将 PDF、Word、网页和笔记导入后，可以用自然语言提问、沿引用回看原文，或在交互式 3D 知识图谱里按主题浏览相关资料。
 
-- 结合 BM25、本地向量检索与 RRF 融合召回文档片段。扫描版 PDF 可用 OCR 提取文字，未配置大模型时仍可离线检索和查看原文摘录。
-- 通过只读 MCP 工具查询文件系统、SQLite 或 GitHub。联网找到的候选资料经用户确认后才会入库。
+**技术栈**  
+`Python` · `FastAPI` · `React` · `TypeScript` · `SQLite` · `Three.js` · `PyMuPDF / RapidOCR` · `MCP`
 
-`Python` · `FastAPI` · `React` · `TypeScript` · `SQLite` · `Three.js` · `MCP`
+**项目亮点**
 
-[界面预览](https://github.com/15016623369a-spe/synapse-zhimai#这是什么) · [本地启动](https://github.com/15016623369a-spe/synapse-zhimai#快速开始)
+- **混合检索与引文溯源。** 结合 BM25、向量检索与 RRF，为候选文档分配片段额度。回答附可展开的原文引用，多轮追问可沿用当前讨论的文档。
+- **本地索引与可视化组织。** 扫描版 PDF 支持 OCR，知识库和索引存储在本地。离线模式支持检索和原文摘录，分区图谱可按研究主题组织文档、概念和标签。
+- **可控的外部资料补充。** 可配置只读 MCP 工具查询文件系统、SQLite 和 GitHub。联网补查返回候选资料，由用户选择并确认入库。
+
+[界面预览](https://github.com/15016623369a-spe/synapse-zhimai#这是什么) · [核心特性](https://github.com/15016623369a-spe/synapse-zhimai#核心特性) · [本地启动](https://github.com/15016623369a-spe/synapse-zhimai#快速开始)
 
 ### [学以成片 · 短视频教学 Agent](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent)
 
-把 Markdown 学习笔记转成可审阅、可修改的教学视频。工作台保留知识点对应的原文引文，支持逐镜修改讲稿和画面、试做单镜，再合成配音、字幕、视频和封面。
+**项目介绍**  
+把 Markdown 学习笔记改编成面向指定受众的教学视频。工作台先生成知识点、讲稿和分镜，创作者可以逐镜调整讲解、图解和术语读法，试做并审阅后再导出配音、字幕、成片和横竖版封面。
 
-- 本地工作台 **v0.2.0** 支持修订历史、任务恢复和有界重试。修改某一镜后，仍有效的产物可从缓存复用。
+**技术栈**  
+`Python` · `JavaScript` · `SQLite` · `Remotion / React` · `MLX` · `Qwen3-TTS` · `Whisper` · `FFmpeg / FFprobe`
 
-`Python` · `React` · `Remotion` · `FFmpeg` · `Qwen3-TTS` · `Whisper`
+**项目亮点**
 
-[工作台与示例](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent#已经可以做什么) · [架构与执行机制](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent/blob/main/docs/public/ARCHITECTURE.md)
+- **从分镜回溯到学习原文。** 模型选择来源行号，程序回填并校验逐字引文。分镜关联对应知识点，并记录类比的适用边界，便于创作者审阅讲解内容。
+- **字幕和画面事件对齐真实口播。** 用 Qwen3-TTS 本地配音，通过 Whisper 转写生成时间戳。字幕、重点弹字和图解切换沿用同一口播时间基准，再由 Remotion 和 FFmpeg 渲染、混音与合成。
+- **逐镜修改与增量重做。** 任务保存分镜修订和各阶段结果，失败后可有限重试。改动某一镜的讲稿后，只重跑受影响的配音、转写、对齐和渲染阶段，再合成整片。其他镜头的有效产物经过校验后可复用。
+
+[工作台预览](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent#工作台预览) · [架构与执行机制](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent/blob/main/docs/public/ARCHITECTURE.md) · [本地试用](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent#快速开始)
 
 ### [ReGlyph PDF · 本地 PDF 文字编辑器](https://github.com/15016623369a-spe/reglyph-pdf)
 
-在 OCRPDF-TO-PPT 基础上维护并扩展桌面编辑器，让扫描件和扁平化宣传册中的文字重新可编辑。工作台把识别、替换预览、底图修复与文字排版串起来，支持导出带文字图层的 PDF 和可编辑的 PowerPoint 文字框。
+**项目介绍**  
+基于 OCRPDF-TO-PPT 扩展的桌面编辑器，用于修改扫描 PDF、扁平化宣传册和图片里的文字。工作台识别并定位原字，在选定区域修复底图，再重建可独立调整位置、字体和样式的文字框。
 
-- 严格替换模式校验选区外像素一致性，失败或取消时回滚该批操作。可移植工程保存原页、修复底图与文字图层，便于对照和继续编辑。
+**技术栈**  
+`Python` · `PySide6 / Qt` · `PaddleOCR` · `OpenCV` · `IOPaint / LaMa` · `PyMuPDF` · `python-pptx`
 
-`Python` · `PySide6` · `PaddleOCR` · `LaMa`
+**项目亮点**
 
-[工作台与使用说明](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/README.zh-CN.md) · [上游与新增部分](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/THIRD_PARTY_NOTICES.md)
+- **批量替换前逐项预览。** 预览显示页码、原文字和替换文字，用户确认后只处理勾选项。严格模式把定位不明确、容易擦到正文的候选留给人工核对。
+- **限定修复区域并校验像素。** 简单底色使用快速清除，复杂纹理交给 LaMa 修复。提交前检查允许区域外的像素一致性，失败或取消时回滚该批次的文字和底图。
+- **可恢复的编辑工程与多格式导出。** `.ipdfedit` 工程保留原页、修复底图和文字图层，支持撤销、重做和自动备份。可导出带文字图层的 PDF，也可导出保留可编辑文字框的 PowerPoint。
+
+[界面与使用说明](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/README.zh-CN.md) · [技术架构](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/docs/architecture.md) · [上游来源与第三方说明](https://github.com/15016623369a-spe/reglyph-pdf/blob/main/THIRD_PARTY_NOTICES.md)
 
 ## 信息融合与统计建模
 
