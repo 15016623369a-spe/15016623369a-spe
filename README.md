@@ -8,21 +8,21 @@
 
 ## 代表项目
 
-### [见数 · Text2SQL Agent](https://github.com/15016623369a-spe/text2sql-agent)
+### [见数 · Evidence-gated Agentic RAG](https://github.com/15016623369a-spe/jianshu-react)
 
 **项目介绍**  
-见数把数据库问数和文件分析放进同一个工作台。用户可以用自然语言查询 SQLite 或 PostgreSQL，也可以上传 CSV、Excel 做筛选、聚合、公式核对和绘图。数据库查询完成后，界面会展示本次使用的业务口径、实际执行的 SQL 和结果，方便复核或继续追问。
+面向政策调查、产品手册和零售指标的垂直 Agentic RAG 工作台。系统先解析问题范围，再检索政策、公告和手册；证据不足时补查或拒答，证据齐全后才执行只读 SQL 或匹配手册章节。每个金额都能回溯到政策、公告、SQL 与绑定参数。V1 的数据库问数与表格分析保留在 [text2sql-agent](https://github.com/15016623369a-spe/text2sql-agent)。
 
 **技术栈**  
-`Python` · `FastAPI` · `LangGraph` · `Streamlit` · `Plotly` · `SQLite / PostgreSQL` · `pandas` · `Docker Compose`
+`Python` · `FastAPI` · `LangGraph` · `Streamlit` · `SQLite / PostgreSQL` · `BM25 / BGE-M3` · `Docker Compose`
 
 **项目亮点**
 
-- **多轮口径澄清与 SQL 试跑。** LangGraph 保存已确认的时间、地区和指标口径，刷新后可恢复会话。Schema RAG 检索相关表列并补齐外键桥接表，生成的 SQL 通过 `EXPLAIN` 检查后以只读权限执行。演示库的订单备注修改需人工审批。
-- **复杂表格分析与计算隔离。** 支持选择工作表、确认多级表头，并按指定单位和容差逐行核对公式。文件计算在关闭网络的容器内运行，可输出统计表、交互图表和可下载结果。
-- **真实执行结果评测。** 在 BIRD Mini-Dev 的 200 道留出题上，新旧版本各运行三次，SQL 执行准确率中位数从 **32.5% 提升至 39.5%**。评测记录同时公开结果匹配口径、失败分类、延迟与 token 开销。
+- **证据门控，而不是自由 ReAct。** 有界状态机按「范围解析 → 检索 → 证据缺口判断 → 补查 / 拒答 → 只读 SQL → 金额与引用核验」执行。正常路径不调用模型，模型只在需要改写检索词时兜底。
+- **冲突与缺口在算数前拦下。** 政策和公告按商品、地区、生效期和版本校验；版本冲突、公告循环或月份覆盖缺口会在 SQL 前停止并说明原因，金额按整数分计算。
+- **多域评测。** 内部 150 题（政策 60 / 手册 45 / 零售 45）：模型兜底 150/150、离线确定性 146/150、错误出数 0，引用精度与拒答正确率 100%，正常路径 P95 4.45 ms；301 项自动测试。
 
-[逐步演示](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/demo.md) · [快速启动](https://github.com/15016623369a-spe/text2sql-agent#快速启动) · [评测与复现](https://github.com/15016623369a-spe/text2sql-agent/blob/main/docs/ci.md#产品路径-bird-评测)
+[三分钟演示](https://github.com/15016623369a-spe/jianshu-react/blob/main/examples/demo/v3-portfolio-demo.mp4) · [作品集案例](https://github.com/15016623369a-spe/jianshu-react/blob/main/docs/portfolio-case-study.md) · [评测报告](https://github.com/15016623369a-spe/jianshu-react/blob/main/docs/v3-m5-release-report.md)
 
 ### [Synapse · 知脉 | 本地知识库与研究助手](https://github.com/15016623369a-spe/synapse-zhimai)
 
@@ -39,6 +39,22 @@
 - **可控的外部资料补充。** 可配置只读 MCP 工具查询文件系统、SQLite 和 GitHub。联网补查返回候选资料，由用户选择并确认入库。
 
 [界面预览](https://github.com/15016623369a-spe/synapse-zhimai#这是什么) · [核心特性](https://github.com/15016623369a-spe/synapse-zhimai#核心特性) · [本地启动](https://github.com/15016623369a-spe/synapse-zhimai#快速开始)
+
+### [FitCheck · 语音健身记录 Agent](https://github.com/15016623369a-spe/bojililun)
+
+**项目介绍**  
+手机优先的中文健身手账，可在自己电脑上部署。说一句话、打字或拍照记录训练、饮食和体重，也可以让应用排今日训练计划；回顾页和训练统计展示容量、个人纪录、营养与热量缺口。项目由我发起和维护，与两位共创者通过 Pull Request 协作。
+
+**技术栈**  
+`Next.js 15` · `React 19` · `TypeScript` · `three.js` · `node:sqlite` · `Vercel AI SDK`
+
+**项目亮点**
+
+- **模型只做非结构化到结构化。** 计算、筛选和排计划都走确定性代码。未接模型时，本地规则解析动作、组数、重量和食物份量，认不准的动作按原话记录。
+- **约束记忆参与决策。** 伤病和禁忌等约束类记忆始终进入上下文，并在排计划时按规则排除相关动作；记忆写入需用户确认，冲突不静默覆盖。
+- **一份数据，一个口径。** 回顾页与训练统计读取同一份训练手账，同一节训练只计一次。AGENTS.md 记录产品规格、代码入口与统计口径；PR 附改动前后对照截图，CI 跑类型检查、测试与构建。
+
+[界面一览](https://github.com/15016623369a-spe/bojililun#界面一览) · [快速开始](https://github.com/15016623369a-spe/bojililun#快速开始) · [AGENTS.md](https://github.com/15016623369a-spe/bojililun/blob/main/AGENTS.md)
 
 ### [学以成片 · 短视频教学 Agent](https://github.com/15016623369a-spe/xue-yi-cheng-pian-agent)
 
